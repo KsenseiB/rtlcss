@@ -130,7 +130,7 @@ if (!shouldBreak) {
 if (!shouldBreak) {
   if (!output && input !== '-') {
     if (directory !== true) {
-      output = path.extname(input) ? input.replace(/\.[^.]*$/, ext => { return '.rtl' + ext }) : input + '.rtl'
+      output = path.extname(input) ? input.replace(/\.[^.]*$/, ext => '.rtl' + ext) : input + '.rtl'
     } else {
       output = input
     }

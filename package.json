@@ -62,6 +62,10 @@
         "error",
         "as-needed"
       ],
+      "arrow-body-style": [
+        "error",
+        "as-needed"
+      ],
       "guard-for-in": "error",
       "no-else-return": [
         "error",
