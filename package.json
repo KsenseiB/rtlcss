@@ -36,14 +36,14 @@
   },
   "devDependencies": {
     "mocha": "^8.2.1",
-    "standardx": "^7.0.0"
+    "standard": "^16.0.3"
   },
   "peerDependencies": {
     "postcss": "^8.2.1"
   },
   "scripts": {
     "main": "node ./lib/rtlcss.js",
-    "lint": "standardx",
+    "lint": "standard",
     "lint:fix": "npm run lint -- --fix",
     "mocha": "mocha -R spec",
     "test": "npm run lint && npm run main && npm run mocha"
@@ -52,32 +52,5 @@
   "files": [
     "bin/*.js",
     "lib/*.js"
-  ],
-  "eslintConfig": {
-    "parserOptions": {
-      "sourceType": "script"
-    },
-    "rules": {
-      "arrow-parens": [
-        "error",
-        "as-needed"
-      ],
-      "arrow-body-style": [
-        "error",
-        "as-needed"
-      ],
-      "guard-for-in": "error",
-      "no-else-return": [
-        "error",
-        {
-          "allowElseIf": false
-        }
-      ],
-      "no-lonely-if": "error",
-      "no-useless-escape": "error",
-      "object-shorthand": "error",
-      "prefer-arrow-callback": "error",
-      "strict": "error"
-    }
-  }
+  ]
 }
