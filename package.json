@@ -36,14 +36,14 @@
   },
   "devDependencies": {
     "mocha": "^8.2.1",
-    "standard": "^16.0.3"
+    "standardx": "^7.0.0"
   },
   "peerDependencies": {
     "postcss": "^8.2.1"
   },
   "scripts": {
     "main": "node ./lib/rtlcss.js",
-    "lint": "standard",
+    "lint": "standardx",
     "lint:fix": "npm run lint -- --fix",
     "mocha": "mocha -R spec",
     "test": "npm run lint && npm run main && npm run mocha"
@@ -52,5 +52,18 @@
   "files": [
     "bin/*.js",
     "lib/*.js"
-  ]
+  ],
+  "eslintConfig": {
+    "parserOptions": {
+      "sourceType": "script"
+    },
+    "rules": {
+      "arrow-parens": [
+        "error",
+        "as-needed"
+      ],
+      "prefer-arrow-callback": "error",
+      "strict": "error"
+    }
+  }
 }

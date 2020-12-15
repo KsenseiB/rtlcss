@@ -14,7 +14,7 @@ let input, output, directory, ext, config, currentErrorcode, arg
 const args = process.argv.slice(2)
 let shouldBreak = false
 
-process.on('exit', function () { process.reallyExit(currentErrorcode) })
+process.on('exit', () => { process.reallyExit(currentErrorcode) })
 
 function printWarning (...args) {
   console.warn(chalk.yellow(...args))
@@ -132,7 +132,7 @@ if (!shouldBreak) {
 if (!shouldBreak) {
   if (!output && input !== '-') {
     if (directory !== true) {
-      output = path.extname(input) ? input.replace(/\.[^.]*$/, function (ext) { return '.rtl' + ext }) : input + '.rtl'
+      output = path.extname(input) ? input.replace(/\.[^.]*$/, ext => { return '.rtl' + ext }) : input + '.rtl'
     } else {
       output = input
     }
@@ -165,9 +165,9 @@ if (!shouldBreak) {
         savePath = output
       }
       printInfo('Saving:', savePath)
-      fs.writeFile(savePath, result.css, 'utf8', function (err) { err && printError(err) })
+      fs.writeFile(savePath, result.css, 'utf8', err => { err && printError(err) })
       if (result.map) {
-        fs.writeFile(savePath + '.map', result.map, 'utf8', function (err) { err && printError(err) })
+        fs.writeFile(savePath + '.map', result.map, 'utf8', err => { err && printError(err) })
       }
     } else {
       process.stdout.write(result.css + '\n')
@@ -175,7 +175,7 @@ if (!shouldBreak) {
   }
 
   const walk = function (dir, done) {
-    fs.readdir(dir, function (error, list) {
+    fs.readdir(dir, (error, list) => {
       if (error) {
         return done(error)
       }
@@ -186,11 +186,11 @@ if (!shouldBreak) {
           return done(null)
         }
         file = dir + path.sep + file
-        fs.stat(file, function (err, stat) {
+        fs.stat(file, (err, stat) => {
           if (err) {
             printError(err)
           } else if (stat && stat.isDirectory()) {
-            walk(file, function (err) {
+            walk(file, err => {
               if (err) {
                 printError(err)
               } else {
@@ -215,7 +215,7 @@ if (!shouldBreak) {
               }
 
               // read and process the file.
-              fs.readFile(file, 'utf8', function (e, data) {
+              fs.readFile(file, 'utf8', (e, data) => {
                 try {
                   processCSSFile(e, data, rtlFile)
                 } catch (e) {
@@ -233,13 +233,13 @@ if (!shouldBreak) {
 
   if (input !== '-') {
     if (directory !== true) {
-      fs.stat(input, function (error, stat) {
+      fs.stat(input, (error, stat) => {
         if (error) {
           printError(error)
         } else if (stat && stat.isDirectory()) {
           printError('rtlcss: Input expected to be a file, use -d option to process a directory.')
         } else {
-          fs.readFile(input, 'utf8', function (e, data) {
+          fs.readFile(input, 'utf8', (e, data) => {
             try {
               processCSSFile(e, data)
             } catch (e) {
@@ -250,7 +250,7 @@ if (!shouldBreak) {
         }
       })
     } else {
-      walk(input, function (error) {
+      walk(input, error => {
         if (error) {
           printError('rtlcss: ' + error)
         }
@@ -261,14 +261,14 @@ if (!shouldBreak) {
     process.stdin.setEncoding('utf8')
 
     let buffer = ''
-    process.stdin.on('data', function (data) {
+    process.stdin.on('data', data => {
       buffer += data
     })
-    process.on('SIGINT', function () {
+    process.on('SIGINT', () => {
       processCSSFile(false, buffer)
       process.exit()
     })
-    process.stdin.on('end', function () {
+    process.stdin.on('end', () => {
       processCSSFile(false, buffer)
     })
   }
