@@ -62,6 +62,13 @@
         "error",
         "as-needed"
       ],
+      "no-else-return": [
+        "error",
+        {
+          "allowElseIf": false
+        }
+      ],
+      "no-lonely-if": "error",
       "object-shorthand": "error",
       "prefer-arrow-callback": "error",
       "strict": "error"
